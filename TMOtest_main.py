@@ -5,6 +5,8 @@ import win32com.client as win32
 import re
 import os
 import data_model
+import input_data
+import read_data
 
 
 # 导入Excel库，用这个方法导入Excel库，可以直接读到win32.constants.xlCenter
@@ -37,6 +39,14 @@ def read_file(path):
 
         print('This is ' + file_type + ' !\n\n')
 
+        obj_data = ObjDataModel(file_type, type_index)
+
+        with open(path, 'r') as readFile:
+
+            read_data.read_sfr(readFile)
+
+            obj_data.data_list = data_model.get_data_dic()
+
     elif 3 < type_index <= 5:
 
         print('This is ' + file_type + ' !\n\n')
@@ -58,10 +68,50 @@ def read_file(path):
         print('This is ' + file_type + ' !\n\n')
 
 
+def input_excel(obj_data):
+
+    excel_path = ''
+
+    for file_name in os.listdir(os.getcwd()):
+        if os.path.splitext(file_name)[1] == '.xlsx':
+            excel_path = os.path.join(os.getcwd(), file_name)
+
+    wb = excel.Workbooks.Open(excel_path)
+
+    if obj_data.type_index <= 3:
+
+        input_data.input_sfr_data(wb, obj_data)
+
+    elif 3 < obj_data.type_index <= 5:
+
+        print('This is ' + obj_data.file_type + ' !\n\n')
+
+    elif 5 < obj_data.type_index <= 7:
+
+        print('This is ' + obj_data.file_type + ' !\n\n')
+
+    elif 7 < obj_data.type_index <= 14:
+
+        print('This is ' + obj_data.file_type + ' !\n\n')
+
+    elif 14 < obj_data.type_index <= 16:
+
+        print('This is ' + obj_data.file_type + ' !\n\n')
+
+    elif 16 < obj_data.type_index <= 20:
+
+        print('This is ' + obj_data.file_type + ' !\n\n')
+
+
 if __name__ == '__main__':
 
-    print('CSV input:\n')
+    data_model.init_global_data()
 
-    csv_path = input()
+    txt_path = []
 
-    read_file(csv_path[1:-1])
+    for x in os.listdir(os.getcwd()):
+        if os.path.splitext(x)[1] == '.csv':
+            txt_path.append(os.path.join(os.getcwd(), x))
+
+    for x in range(len(txt_path)):
+        read_file(txt_path[x])

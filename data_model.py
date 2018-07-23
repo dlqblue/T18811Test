@@ -12,4 +12,20 @@ data_type_list = [
     'Noise 1000lux Rear', 'Noise 10lux Rear', 'Noise 1000lux Front', 'Noise 10lux Front'
 ]
 
+
 read_sfr_line_number = [63, 65, 66]
+
+
+def init_global_data():    # 初始化
+    global _data_dic
+    _data_dic = {}
+
+
+def set_data_dic(key, value):
+
+    _data_dic[key] = value
+
+
+def get_data_dic():
+
+    return _data_dic
